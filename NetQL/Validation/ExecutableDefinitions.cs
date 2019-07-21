@@ -3,7 +3,7 @@ using System;
 
 namespace NetQL.Validation
 {
-    internal class ExecutableDefinitions
+    internal class ExecutableDefinitions : IValidation
     {
         /// <summary>
         /// 5.1.1Executable Definitions
@@ -25,13 +25,7 @@ namespace NetQL.Validation
             MatchCollection types = typesRegex.Matches(document);
 
 
-            if (typeExtensions.Count > 0)
-            {
-                return typeExtensions.Count <= types.Count;
-            }
-
-
-            return true;
+            return typeExtensions.Count == 0 && types.Count == 0;
         }
     }
 }

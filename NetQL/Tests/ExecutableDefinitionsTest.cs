@@ -4,7 +4,7 @@ using NetQL.Validation;
 namespace NetQL.Tests
 {
     [TestFixture]
-    public class ExecutableDefinitionsTest
+    public class ExecutableDefinitionsTest : ITest
     {
         [Test]
         public void ReturnsTrueForAValidDocument()
@@ -20,7 +20,7 @@ namespace NetQL.Tests
             Assert.IsFalse(executableDefinitions.IsValid(InValidDocument()));
         }
 
-        private string ValidDocument()
+        public string ValidDocument()
         {
             return @"
                 query getDogName {
@@ -32,7 +32,7 @@ namespace NetQL.Tests
             ";
         }
 
-        private string InValidDocument()
+        public string InValidDocument()
         {
             return @"
                 query getDogName {
