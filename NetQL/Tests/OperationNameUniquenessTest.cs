@@ -1,30 +1,31 @@
 ﻿using NUnit.Framework;
 using NetQL.Validation;
-using System;
+using NetQL.Tests.Utilities;
 
 namespace NetQL.Tests
 {
     [TestFixture]
     public class OperationNameUniquenessTest : ITest
     {
-        // Each named operation definition must be unique within a document when referred to by its name.
         [Test]
         public void HasUniqueOperationNames()
         {
             OperationNameUniqueness operationNameUniqueness = new OperationNameUniqueness();
-            Assert.IsTrue(operationNameUniqueness.IsValid(ValidDocument()));
+            Assertions.HasValidDocuments(ValidDocuments(), operationNameUniqueness);
         }
 
         [Test]
         public void HasNoUniqueOperationNames()
         {
             OperationNameUniqueness operationNameUniqueness = new OperationNameUniqueness();
-            Assert.IsFalse(operationNameUniqueness.IsValid(InValidDocument()));
+            Assertions.HasInValidDocuments(InValidDocuments(), operationNameUniqueness);
         }
 
-        public string ValidDocument()
+        public string[] ValidDocuments()
         {
-            return @"
+            string[] validDocuments =
+            {
+                @"
                 query getDogName {
                   dog {
                     name
@@ -38,25 +39,34 @@ namespace NetQL.Tests
                     }
                   }
                 }
-            ";
+                ",
+                @"
+                query getDogName {
+                  dog {
+                    name
+                  }
+                }
+                "
+            };
+
+            return validDocuments;
         }
 
-        public string InValidDocument()
+        public string[] InValidDocuments()
         {
-            Random random = new Random();
-            string[] array = {
+            string[] invalidDocuments = {
                 @"
                 query getName {
                     dog {
-                    name
+                        name
                     }
                 }
 
                 query getName {
                     dog {
-                    owner {
-                        name
-                    }
+                        owner {
+                            name
+                        }
                     }
                 }
                 ",
@@ -76,7 +86,7 @@ namespace NetQL.Tests
 
             };
 
-            return array[random.Next(0, 1)];
+            return invalidDocuments;
         }
 
     }

@@ -11,7 +11,7 @@ namespace NetQL.Validation
         /// Formal Specification
         ///
         /// For each definition definition in the document.
-        /// definition must be OperationDefinition or
+        /// Definition must be OperationDefinition or
         /// FragmentDefinition (it must not be TypeSystemDefinition).
         /// </summary>
         /// <param name="document"></param>

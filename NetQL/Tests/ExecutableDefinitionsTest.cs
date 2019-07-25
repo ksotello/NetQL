@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using NetQL.Validation;
+using NetQL.Tests.Utilities;
 
 namespace NetQL.Tests
 {
@@ -10,31 +11,46 @@ namespace NetQL.Tests
         public void ReturnsTrueForAValidDocument()
         {
             ExecutableDefinitions executableDefinitions = new ExecutableDefinitions();
-            Assert.IsTrue(executableDefinitions.IsValid(ValidDocument()));
+            Assertions.HasValidDocuments(ValidDocuments(), executableDefinitions);
         }
 
         [Test]
         public void ReturnsFalseForAnInValidDocument()
         {
             ExecutableDefinitions executableDefinitions = new ExecutableDefinitions();
-            Assert.IsFalse(executableDefinitions.IsValid(InValidDocument()));
+            Assertions.HasInValidDocuments(InValidDocuments(), executableDefinitions);
         }
 
-        public string ValidDocument()
+        public string[] ValidDocuments()
         {
-            return @"
+            string[] validDocuments =
+            {
+                @"
                 query getDogName {
                   dog {
                     name
                     color
                   }
                 }
-            ";
+                ",
+                @"
+                {
+                  dog {
+                    name
+                    color
+                  }
+                }
+                "
+            };
+
+            return validDocuments;
         }
 
-        public string InValidDocument()
+        public string[] InValidDocuments()
         {
-            return @"
+            string[] invalidDocuments =
+            {
+                @"
                 query getDogName {
                   dog {
                     name
@@ -45,7 +61,10 @@ namespace NetQL.Tests
                     color: String
                   }
                 }
-            ";
+                "
+            };
+
+            return invalidDocuments;
         }
     }
 }
