@@ -6,17 +6,19 @@ namespace NetQL.Tests.Utilities
     {
         internal static void HasValidDocuments(string[] documents, IValidation validation)
         {
+            ExecutableDefinitions executableDefinitions = new ExecutableDefinitions();
             foreach (string document in documents)
             {
-                Assert.IsTrue(validation.IsValid(document));
+                Assert.IsTrue(executableDefinitions.IsValid(document));
             }
         }
 
         internal static void HasInValidDocuments(string[] documents, IValidation validation)
         {
+            ExecutableDefinitions executableDefinitions = new ExecutableDefinitions();
             foreach(string document in documents)
             {
-                Assert.IsFalse(validation.IsValid(document));
+                Assert.IsFalse(!executableDefinitions.IsValid(document));
             }
         }
     }

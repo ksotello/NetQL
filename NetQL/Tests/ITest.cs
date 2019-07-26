@@ -1,5 +1,4 @@
-﻿using System;
-namespace NetQL.Tests
+﻿namespace NetQL.Tests
 {
     public interface ITest
     {

@@ -18,8 +18,8 @@ namespace NetQL.Validation
         /// <returns></returns>
         public bool IsValid(string document)
         {
-            Regex typesRegex = new Regex(@"\s{2}?type");
-            Regex typeExtensionsRegex = new Regex(@"extend");
+            Regex typesRegex = new Regex(@"/\s{2}?type/");
+            Regex typeExtensionsRegex = new Regex(@"/^extend/");
 
             MatchCollection typeExtensions = typeExtensionsRegex.Matches(document);
             MatchCollection types = typesRegex.Matches(document);
